@@ -1,4 +1,4 @@
-### verview
+### Overview
 
 - The presentation covers key architectural patterns in software design including Domain-Driven Design (DDD), Command Query Responsibility Segregation (CQRS), and Event Sourcing
 - These patterns help manage complex business logic, optimize performance, and maintain data integrity in distributed systems
@@ -53,7 +53,8 @@
     - Event is stored in event log and propagated to query service
     - Query service updates the read model with new price
     - When users query product details, they see the updated price
+---
 
-### Future Topics
 
-- Deeper exploration of event sourcing in upcoming content
+
+The Core ConceptDefinition: CQRS separates the application into two distinct parts: one for updating the database (Command) and one for reading from the database (Query).FeatureTraditional CRUDCQRSModelSingle model for Read & WriteTwo separate models (Write Model & Read Model)DatabaseSingle DatabaseOften separate DBs (e.g., SQL for Write, NoSQL for Read)ScalingScale everything togetherScale Read and Write independentlyComplexityLowHigh
