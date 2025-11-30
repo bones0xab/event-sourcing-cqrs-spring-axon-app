@@ -1,3 +1,3 @@
-package org.example.eventsourcingcqrsspringaxonapp.commands.dtos;
+package org.example.eventsourcingcqrsspringaxonapp.commons.dtos;
 
 public record AddNewAccountRequestDto(double initialeBalance, String currency) {}

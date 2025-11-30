@@ -1,21 +1,14 @@
 package org.example.eventsourcingcqrsspringaxonapp.commands.controllers;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.axonframework.commandhandling.gateway.DefaultCommandGateway;
 import org.axonframework.eventsourcing.eventstore.EventStore;
-import org.example.eventsourcingcqrsspringaxonapp.commands.aggregate.AccountAggregate;
 import org.example.eventsourcingcqrsspringaxonapp.commands.command.AddAccountCommand;
 import org.example.eventsourcingcqrsspringaxonapp.commands.command.CreditAccountCommand;
 import org.example.eventsourcingcqrsspringaxonapp.commands.command.DebitAccountCommand;
-import org.example.eventsourcingcqrsspringaxonapp.commands.dtos.AddNewAccountRequestDto;
-import org.example.eventsourcingcqrsspringaxonapp.commands.dtos.CreditAccountDTO;
-import org.example.eventsourcingcqrsspringaxonapp.commands.dtos.DebitAccountDto;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.example.eventsourcingcqrsspringaxonapp.commons.dtos.AddNewAccountRequestDto;
+import org.example.eventsourcingcqrsspringaxonapp.commons.dtos.CreditAccountDTO;
+import org.example.eventsourcingcqrsspringaxonapp.commons.dtos.DebitAccountDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -39,7 +32,7 @@ public class AccountCommandController {
         return reponse;
     };
 
-    @PostMapping("/debit")
+    @PutMapping("/debit")
     public CompletableFuture<String> debitAccount(@RequestBody DebitAccountDto debitAccountDto) {
         CompletableFuture<String> response = commandGateway.send(new DebitAccountCommand(
                 debitAccountDto.accountId(),
@@ -48,7 +41,7 @@ public class AccountCommandController {
         ));
         return response;
     }
-    @PostMapping("/credit")
+    @PutMapping("/credit")
     public CompletableFuture<String> creditAccount(@RequestBody CreditAccountDTO creditAccountDto) {
         CompletableFuture<String> response = commandGateway.send(new CreditAccountCommand(
                 creditAccountDto.accountId(),

@@ -3,8 +3,6 @@ package org.example.eventsourcingcqrsspringaxonapp.commands.aggregate;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -14,7 +12,7 @@ import org.axonframework.spring.stereotype.Aggregate;
 import org.example.eventsourcingcqrsspringaxonapp.commands.command.AddAccountCommand;
 import org.example.eventsourcingcqrsspringaxonapp.commands.command.CreditAccountCommand;
 import org.example.eventsourcingcqrsspringaxonapp.commands.command.DebitAccountCommand;
-import org.example.eventsourcingcqrsspringaxonapp.commands.enums.AccountStatus;
+import org.example.eventsourcingcqrsspringaxonapp.commons.enums.AccountStatus;
 import org.example.eventsourcingcqrsspringaxonapp.commands.events.AccountCreatedEvent;
 import org.example.eventsourcingcqrsspringaxonapp.commands.events.AccountCreditedEvent;
 import org.example.eventsourcingcqrsspringaxonapp.commands.events.AccountDebitEvent;
@@ -36,7 +34,7 @@ public class AccountAggregate {
         log.info("CreateAccount Command Received");
         if (command.initialBalance()<0) throw  new IllegalArgumentException("Balance negative exception");
         AggregateLifecycle.apply(new AccountCreatedEvent(
-                command.id(),
+                command.accountId(),
                 command.initialBalance(),
                 command.currency(),
                 AccountStatus.CREATED
