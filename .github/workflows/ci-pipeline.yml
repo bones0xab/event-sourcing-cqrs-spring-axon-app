@@ -30,7 +30,7 @@ jobs:
       - name: recuperation du code
         uses: actions/checkout@v4
       - name: configuration de node
-        uses: actions/setup-node@4
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'npm'
