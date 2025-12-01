@@ -15,10 +15,7 @@ import org.example.eventsourcingcqrsspringaxonapp.query.queries.GetAccountByIdQu
 import org.example.eventsourcingcqrsspringaxonapp.query.queries.GetAccountOperationsQuery;
 import org.example.eventsourcingcqrsspringaxonapp.query.queries.GetAllAccountsQuery;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -27,6 +24,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/query/accounts")
 @Slf4j
+@CrossOrigin("*")
 public class AccountQueryController {
     private final QueryGateway queryGateway;
 

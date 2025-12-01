@@ -17,6 +17,7 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 @RequestMapping("/commands/accounts")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class AccountCommandController {
 
     private  CommandGateway commandGateway;

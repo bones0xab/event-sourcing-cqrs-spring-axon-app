@@ -42,7 +42,7 @@ public class AccountAggregate {
     }
 
     @CommandHandler
-    public AccountAggregate(CreditAccountCommand command){
+    public void handle(CreditAccountCommand command){
         log.info("CreditAccount Command Received");
         if (command.amount() <= 0)
             throw new IllegalArgumentException("Amount must be positive");
@@ -54,7 +54,7 @@ public class AccountAggregate {
     }
 
     @CommandHandler
-    public AccountAggregate(DebitAccountCommand command){
+    public void handle(DebitAccountCommand command){
         log.info("DebitCommand Command Received");
         if (command.amount() <= 0)
             throw new IllegalArgumentException("Amount must be positive");
@@ -66,7 +66,7 @@ public class AccountAggregate {
     }
 
     @EventSourcingHandler
-    public void handleAccountDebitedEvent(AccountDebitEvent event) {
+    public void on(AccountDebitEvent event) {
         this.accountId = event.accountId();
         this.balance = event.amount();
         this.currency = event.currency();
@@ -77,7 +77,7 @@ public class AccountAggregate {
 
 
     @EventSourcingHandler
-    public void handleAccountCreditedEvent(AccountCreditedEvent event) {
+    public void on(AccountCreditedEvent event) {
         this.accountId = event.accountId();
         this.balance = event.amount();
         this.currency = event.currency();

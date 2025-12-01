@@ -1,0 +1,289 @@
+:root{
+    --bg:#f6f8fa;
+    --card:#ffffff;
+    --accent:#2b6cb0;
+    --muted:#6b7280;
+    --success:#16a34a;
+}
+
+body,html,#root {
+    height:100%;
+    margin:0;
+    font-family:Inter, Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:#111827;
+}
+
+.app-container{
+    max-width:1100px;
+    margin:32px auto;
+    padding:20px;
+}
+
+.app-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.app-header h1{
+    margin:0;
+    font-size:1.5rem;
+}
+
+.app-header .total{
+    color:var(--muted);
+    font-size:0.95rem;
+}
+
+.main-grid{
+    display:grid;
+    grid-template-columns: 1fr 320px;
+    gap:20px;
+}
+
+/* Accounts list */
+.accounts h2{ margin-top:0; }
+
+.account-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.account-card{
+    background:var(--card);
+    border-radius:8px;
+    padding:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04);
+    border:1px solid transparent;
+}
+
+.account-card.selected{
+    border-color:var(--accent);
+    box-shadow:0 4px 12px rgba(43,108,176,0.08);
+}
+
+.account-info strong{ display:block; }
+.account-info .balance{
+    color:var(--muted);
+    font-size:0.95rem;
+}
+
+/* Controls */
+.controls .card{
+    background:var(--card);
+    padding:14px;
+    border-radius:8px;
+    margin-bottom:12px;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04);
+}
+
+.input{
+    width:100%;
+    padding:8px 10px;
+    margin:8px 0;
+    border-radius:6px;
+    border:1px solid #e5e7eb;
+    box-sizing:border-box;
+}
+
+.btn{
+    padding:8px 12px;
+    border-radius:6px;
+    border:1px solid transparent;
+    background:#f3f4f6;
+    cursor:pointer;
+}
+
+.btn.primary{
+    background:var(--accent);
+    color:white;
+    border-color:var(--accent);
+}
+
+.btn + .btn{ margin-left:8px; }
+
+.tx-buttons{ display:flex; gap:8px; margin-top:8px; }
+
+.empty{ color:var(--muted); }
+
+.small{ color:var(--muted); font-size:0.9rem; }
+/* --- 🤖 CONTENEUR DE LA CARTE IA --- */
+.ai-card {
+    background: linear-gradient(145deg, #ffffff, #f8faff); /* Dégradé subtil */
+    border: 1px solid #eef2ff;
+    box-shadow: 0 10px 30px -10px rgba(79, 70, 229, 0.15); /* Ombre portée douce (bleu/violet) */
+    border-radius: 16px !important; /* Arrondis plus modernes */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* Pour que rien ne dépasse */
+}
+
+.ai-card:hover {
+    transform: translateY(-2px); /* Petit effet de lévitation */
+    box-shadow: 0 15px 35px -10px rgba(79, 70, 229, 0.2);
+}
+
+.ai-card h3 {
+    /* Titre en dégradé (Gradient Text) */
+    background: linear-gradient(to right, #4f46e5, #9333ea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    margin-bottom: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* --- 💬 ZONE DE SAISIE --- */
+.chat-input-area {
+    display: flex;
+    gap: 12px;
+    align-items: stretch; /* Hauteur égale */
+}
+
+.chat-input-area textarea {
+    flex-grow: 1;
+    resize: none;
+    border: 2px solid #e0e7ff;
+    border-radius: 12px;
+    padding: 12px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    background-color: #f9fafb;
+    transition: all 0.3s ease;
+    min-height: 50px;
+}
+
+.chat-input-area textarea:focus {
+    outline: none;
+    background-color: #ffffff;
+    border-color: #6366f1; /* Violet focus */
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); /* Halo de focus */
+}
+
+.chat-input-area textarea::placeholder {
+    color: #94a3b8;
+}
+
+/* --- ▶️ BOUTON ENVOYER --- */
+.ai-card .btn.primary {
+    /* Dégradé vibrant */
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ai-card .btn.primary:hover:not(:disabled) {
+    transform: scale(1.05);
+    filter: brightness(110%);
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+}
+
+.ai-card .btn.primary:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.ai-card .btn.primary:disabled {
+    background: #cbd5e1; /* Gris */
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.7;
+}
+
+/* --- ✨ BULLE DE RÉPONSE (Le plus important) --- */
+.ai-response-box {
+    margin-top: 20px;
+    padding: 20px;
+    /* Fond très léger avec une touche de bleu */
+    background-color: #eff6ff;
+    border-radius: 0 12px 12px 12px; /* Coin haut-gauche carré pour faire style "bulle" */
+    border-left: 4px solid #3b82f6; /* Ligne d'accentuation */
+    position: relative;
+
+    /* Animation d'apparition fluide */
+    animation: popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+/* Titre "Réponse" */
+.ai-response-box strong {
+    display: block;
+    color: #1e40af;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+/* Le texte de l'IA */
+.ai-response-box p {
+    color: #1e3a8a;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+    /* Police un peu "tech" pour la réponse */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Petite flèche décorative (optionnelle, style chat) */
+.ai-response-box::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    border-width: 0 10px 10px 0;
+    border-style: solid;
+    border-color: transparent #3b82f6 transparent transparent;
+}
+
+/* --- 🎬 ANIMATIONS --- */
+@keyframes popIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation de chargement sur le bouton */
+.ai-card .btn.primary:disabled {
+    background-image: linear-gradient(
+            45deg,
+            rgba(255,255,255,0.15) 25%,
+            transparent 25%,
+            transparent 50%,
+            rgba(255,255,255,0.15) 50%,
+            rgba(255,255,255,0.15) 75%,
+            transparent 75%,
+            transparent
+    );
+    background-size: 40px 40px;
+    animation: stripes 1s linear infinite;
+}
+
+@keyframes stripes {
+    from { background-position: 40px 0; }
+    to { background-position: 0 0; }
+}
+/* Responsive */
+@media (max-width:880px){
+    .main-grid{
+        grid-template-columns: 1fr;
+    }
+}

@@ -30,9 +30,47 @@ services:
       - accounts_pgadmin_data:/var/lib/pgadmin
     networks:
       - accounts-net
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama # <--- Le bon chemin interne est /root/.ollama
+    networks:
+      - accounts-net
+    restart: unless-stopped
+
+    # Ce petit service sert juste à télécharger le modèle au démarrage
+  ollama-init:
+    image: curlimages/curl
+    container_name: ollama-init
+    depends_on:
+      - ollama
+    networks:
+      - accounts-net
+    restart: on-failure
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        echo "🔍 Vérification du serveur Ollama..."
+        # Boucle tant que le serveur ne répond pas (Code 200)
+        until curl -s -f -o /dev/null http://ollama:11434/; do
+          echo "zzz... En attente de Ollama..."
+          sleep 2
+        done
+        
+        echo "✅ Serveur en ligne ! Lancement du téléchargement..."
+        # Lance le téléchargement (Ollama est intelligent : si le modèle est là, il ne retélécharge pas tout)
+        curl -X POST http://ollama:11434/api/pull -d '{"name": "llama3.2", "stream": false}'
+        
+        echo "🚀 Terminé !"
+
 volumes:
   accounts_data_fixed:
   accounts_pgadmin_data:
+  ollama_data:
 
 networks:
   accounts-net:
