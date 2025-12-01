@@ -1,0 +1,41 @@
+name: ci-pipeline.yml
+# on declanche le CI lorsque on fait ces execution
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  # Backend Jobs
+  build-backend:
+    name: Build Backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: recuperation du code
+        uses: actions/checkout@v4
+      - name: configuration de java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+      - name: Compilation avec Maven
+        run: mvn clean install -DskipTests
+  build-frontend:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: recuperation du code
+        uses: actions/checkout@v4
+      - name: configuration de node
+        uses: actions/setup-node@4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: ./banking-ui/package-lock.json'
+      - name: Installation des dépendances et build
+        run: npm ci
+      - name:  Build de production
+        run: npm run build
