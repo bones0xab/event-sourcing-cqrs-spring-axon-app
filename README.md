@@ -56,5 +56,73 @@
 ---
 
 
+# Generative AI Integration (RAG Pattern)
+Concept: Integration of Large Language Models (LLM) to interact with the application data using natural language.
 
-The Core ConceptDefinition: CQRS separates the application into two distinct parts: one for updating the database (Command) and one for reading from the database (Query).FeatureTraditional CRUDCQRSModelSingle model for Read & WriteTwo separate models (Write Model & Read Model)DatabaseSingle DatabaseOften separate DBs (e.g., SQL for Write, NoSQL for Read)ScalingScale everything togetherScale Read and Write independentlyComplexityLowHigh
+Pattern: RAG (Retrieval-Augmented Generation). The AI does not access the database directly; the system retrieves relevant data and "feeds" it to the AI context.
+
+Architecture Flow:
+
+User Query: User asks a question (e.g., "What is my balance?").
+
+Retrieval (Query Side): Spring Boot Query Service fetches structured data (DTOs) from the Read Database (PostgreSQL).
+
+Prompt Engineering: The system constructs a prompt containing the user question + the retrieved JSON data.
+
+Generation: The LLM (Ollama/OpenAI) generates a natural language response based only on the provided context.
+
+Technology Stack:
+
+Spring AI: Framework for orchestrating AI interactions in Java.
+
+Ollama: Local execution of models (e.g., Llama 3.2) for privacy and cost efficiency.
+
+Docker: Containerization of the AI model server.
+
+# CI/CD & Automation (DevOps)
+Goal: Automate the integration and delivery process to ensure code quality and deployment readiness.
+
+Tool: GitHub Actions (Workflows defined in YAML).
+
+Pipeline Structure:
+
+Trigger: Activates on every git push to the main branch.
+
+Backend Job:
+
+Sets up Java JDK 17 environment.
+
+Caches Maven dependencies for speed.
+
+Compiles code and runs Unit Tests (mvn clean install).
+
+Frontend Job:
+
+Sets up Node.js environment.
+
+Installs dependencies (npm install).
+
+Builds the production bundle (npm run build).
+
+Benefits:
+
+Immediate feedback on build errors.
+
+Ensures that both Backend (Spring Boot) and Frontend (React) are always in a deployable state.
+
+Containerization & Infrastructure
+Docker Compose: Orchestrates the multi-container environment locally.
+
+# Services Managed:
+
+Axon Server: Event Store and Command Bus hub.
+
+PostgreSQL: Relational database for the Read Model (Projections).
+
+Spring Boot App: The application logic (Command & Query sides).
+
+Ollama: The AI engine running in a container with persistent model storage.
+
+pgAdmin: Database management interface.
+
+Networking: All services communicate via an internal Docker bridge network (accounts-net), isolating them from external access except for exposed ports.
